@@ -1,7 +1,22 @@
 from pydantic import BaseModel
+from typing import List, Optional
 from datetime import datetime, time
 
-def DEAD_SET_SONG(BaseModel):
+class DEAD_SONG(BaseModel):
+    songId: int
+    title: str
+    firstPlayed: datetime
+    firstPlayedShowId: str
+    lastPlayed: datetime
+    lastPlayedShowId: str
+    countPlayed: int
+    shortestSeconds: int
+    shortestShowId: str
+    longestSeconds: int
+    longestShowId: str
+
+
+class DEAD_SET_SONG(BaseModel):
     songSequence: int
     songId: str
     title: str
@@ -9,22 +24,29 @@ def DEAD_SET_SONG(BaseModel):
     daysSincePlayed: int
     lengthSeconds: int
 
-def DEAD_SET(BaseModel):
+class DEAD_SET(BaseModel):
     setId: str
     sequence: int
-    runningLegthSeconds: int
-    songs: list[DEAD_SET_SONG]
+    runningLegthSeconds: Optional[int] = None
+    songs: List[DEAD_SET_SONG]
 
-def DEAD_SHOW(BaseModel):
-    showId: str
-    showDate: datetime
-    dayName: str
+class DEAD_VENUE(BaseModel):
     venueId: str
     venue: str
     city: str
     state: str
     country: str
-    runningLengthSeconds: int
-    sets: list[DEAD_SET]
+
+class DEAD_SHOW(BaseModel):
+    showId: str
+    showDate: datetime
+    dayName: Optional[str] = None
+    venueId: str
+    venue: str
+    city: str
+    state: str
+    country: str
+    runningLengthSeconds: Optional[int] = None
+    sets: List[DEAD_SET]
 
 
